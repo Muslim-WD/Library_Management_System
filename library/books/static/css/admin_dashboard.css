@@ -1,0 +1,284 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+.nav {
+    position: fixed;
+    top: 0;  /* Ensure it's at the very top */
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.979);
+    padding: 10px 20px; /* Adjusted padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 50px;  /* Reduced padding */
+}
+
+.logo img {
+    width: 38px;
+    height: 35px;
+    border-radius: 50%;
+  }
+
+.logo {
+    font-weight: 400;
+    font-size: 50px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.logo a {
+    color: #fdfeff;
+    text-decoration: none;
+}
+
+.logo a span {
+    color: rgb(62, 163, 96);
+  }
+
+/* Message */
+.messages {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 80%;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 100px auto 20px; /* Adjusted to prevent overlap */
+    background: white;
+    padding: 20px 50px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h2 {
+    margin-left: 40%;
+}
+
+.heading-borrow {
+    margin-left: 20px;
+}
+
+/* Borrow Requests Section */
+.borrow-requests {
+    width: 90%;
+    background: #f9f9f9;
+    border-radius: 8px;
+    max-height: 300px; /* Limit height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.borrow-requests table {
+    border-collapse: collapse;
+}
+
+.borrow-requests thead {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+}
+
+.borrow-requests th, 
+.borrow-requests td {
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.borrow-requests tbody tr:hover {
+    background: #f1f1f1;
+}
+
+.borrow-requests a {
+    text-decoration: none;
+    color: white;
+    background: #007BFF;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.borrow-requests a:hover {
+    background: #0056b3;
+}
+
+.borrow-requests p {
+    padding-left: 20px;
+}
+
+/* Upload Books Section */
+.upload-books {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.upload-books input[type="file"] {
+    display: block;
+    margin: 10px 0;
+}
+
+.upload-books button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.upload-books button:hover {
+    background: #218838;
+}
+
+/* Logout Button */
+.buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.logout {
+    background: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout:hover {
+    background: #c82333;
+}
+
+/* Borrow History */
+.borrow-history {
+    max-width: 1200px;
+    height: 85vh;
+    justify-content: center;
+    margin-left: 55px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.borrow-history h2 {
+    margin-bottom: 15px;
+    margin-left: 40%;
+    font-size: 22px;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 90%;  /* Adjust width as needed */
+    margin: 20px auto; /*Center the table */
+    max-height: 450px; /* Set max height for scroll */
+    overflow-y: auto; /* Enable vertical scroll */
+    border: 2px solid #ddd; /* Border around the table */
+    background: white; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #333; /* Dark background for headers */
+    color: white; /* White text */
+    font-weight: bold;
+    padding: 12px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0; /* Sticks to the top while scrolling */
+    z-index: 2;
+    margin-top: auto;
+}
+
+.returned {
+    color: green;
+    font-weight: bold;
+}
+
+.approved {
+    color: blue;
+    font-weight: bold;
+}
+
+.pending {
+    color: orange;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+background: #f9f9f9;
+}
+
+/* Hover Effect */
+tbody tr:hover {
+background: #f1f1f1;
+}
+
+/* Scrollbar Customization */
+.table-container::-webkit-scrollbar {
+width: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+background: #555;
+}

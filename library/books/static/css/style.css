@@ -1,0 +1,493 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  /* font-family: Arial, sans-serif, 'Times New Roman', Times, serif; */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background: #333;
+}
+
+/* Max Width */
+.max-width {
+  max-width: 1300px;
+  padding: 0 80px;
+  margin: auto;
+}
+
+/* Navbar */
+.nav {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.979);
+  padding: 10px 0;
+}
+
+.nav .max-width {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo img {
+  width: 38px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.logo {
+  font-weight: 400;
+  font-size: 50px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.logo a {
+  color: #fdfeff;
+}
+
+.logo a span {
+  color: rgb(62, 163, 96);
+}
+
+.menu {
+  display: flex;
+}
+
+.nav .menu li {
+  list-style: none;
+  margin: 0 23px;
+}
+
+.nav .menu li a {
+  color: #fdfeff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.nav .menu li a:hover {
+  color: #255F38;
+  background: #fdfeff;
+  border-radius: 20px;
+  padding: 2px;
+}
+
+#menu {
+  margin-left: auto;
+}
+
+
+/* Home Section */
+.home {
+  background-color: #255F38;
+  text-align: center;
+  padding: 100px 0;
+  height: 100vh;
+}
+
+.home-content {
+  margin: 140px 0px;
+}
+
+.home-content h1 {
+  font-size: 3.5em;
+  color: #f5f5f5;
+}
+
+.home-content p {
+  font-size: 1.2em;
+  color: #D3E671;
+}
+
+/* Buttons */
+.buttons .btn {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 1em;
+}
+
+.buttons .btn:hover {
+  background-color: #11422c;
+}
+
+/* Table */
+/* Container to enable scrolling */
+.table-container {
+  width: 100%;  /* Adjust width as needed */
+  margin: 20px auto; /* Center the table */
+  max-height: 450px; /* Set max height for scroll */
+  overflow-y: auto; /* Enable vertical scroll */
+  border: 2px solid #ddd; /* Border around the table */
+  background: #999; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header Styles */
+th {
+  background: #333; /* Dark background for headers */
+  color: white; /* White text */
+  font-weight: bold;
+  padding: 12px;
+  border: 1px solid #ddd;
+  position: sticky;
+  top: 0; /* Sticks to the top while scrolling */
+  z-index: 2;
+}
+
+/* Row Styles */
+td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Zebra Striping for Rows */
+tbody tr:nth-child(even) {
+  background: #999;
+}
+
+/* Hover Effect */
+tbody tr:hover {
+  background: #444;
+}
+
+/* Scrollbar Customization */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Book List */
+.book-list {
+  background-color: #255F38;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.book-list h2{
+  font-size: 40px;
+  padding-bottom: 40px;
+  font-family: sans-serif;
+  color: #f5f5f5;
+}
+
+/* Search bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align to the left */
+  gap: 10px; /* Space between input and button */
+  margin-bottom: 15px;
+}
+
+.search-container input[type="text"] {
+  padding: 10px 15px;
+  width: 300px; /* Slightly wider */
+  border: 2px solid #444; /* Darker border */
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-container input[type="text"]:focus {
+  border-color: #000000;
+  background-color: #fff;
+  box-shadow: 0px 0px 8px #222;
+}
+
+.search-container button {
+  padding: 10px 18px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-container button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Slight button pop effect */
+}
+
+.search-container button:active {
+  transform: scale(0.98);
+}
+
+/* About */
+.about-section {
+  background-color: #11422c;
+  padding: 180px 0px;
+  text-align: center;
+  height: 100vh;
+}
+
+.about-section h2 {
+  color: #f5f5f5; 
+  font-size: 40px;
+}
+
+.about-section p {
+  font-size: 20px;
+  color: #F2E2B1;
+  line-height: 1.5;
+}
+
+.about-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-section ul li {
+  font-size: 20px;
+  color: #2DAA9E;
+}
+
+.about-section strong {
+  color: #D3E671; /* Green */
+}
+
+/* Footer Styling */
+.footer {
+  background: #111;
+  color: #fff;
+  padding-top: 30px;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.footer-logo h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.footer-logo p {
+  font-size: 14px;
+  color: #ccc;
+  margin-left: 30px;
+}
+
+.footer-links h3 {
+  margin-left: 50px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+.footer-social h3 {
+  margin-left: 70px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+.footer-links ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin: 0 5px;
+}
+
+.footer-links ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer-links ul li a:hover {
+  color: #007bff;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;  /* Circle size */
+  height: 35px; /* Circle size */
+  border-radius: 50%; /* Makes it circular */
+  background-color: #222; /* Default background */
+  font-size: 24px;
+  margin: 0 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  color: white; /* Default icon color */
+}
+
+/* Hover Effects - Change Background Color */
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
+.github:hover {
+  background-color: black;
+}
+
+.linkedin:hover {
+  background-color: #0077b5;
+}
+
+.instagram:hover {
+  background-color: red;
+}
+
+.whatsapp:hover {
+  background-color: #25D366;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background: #000;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Contact Form Container */
+.contact {
+  background-color: #255F38;
+  height: 90vh;
+  text-align: center;
+}
+
+.contact-container {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Form Headings */
+.contact h2,.contact p  {
+  padding-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.contact p {
+  color: #D3E671;
+}
+
+.contact h2 {
+  color: #f5f5f5;
+  font-size: 40px;
+  padding-top: 40px;
+}
+
+/* Input Fields */
+.input-group {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  text-align: left;
+  display: block;
+  font-weight: bold;
+  color: #f5f5f5;
+  margin-bottom: 5px;
+  margin-left: -600px;
+  text-align: center;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 50%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s;
+  background-color: #f9f9f9;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Textarea */
+.input-group textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Error Messages */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 50%;
+  padding: 12px;
+  border: none;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

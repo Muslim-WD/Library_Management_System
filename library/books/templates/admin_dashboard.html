@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_dashboard.css' %}">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#">
+                    <img src="{% static 'images/logo.png' %}" alt="Library Logo">
+                    Lib<span>rary</span>
+                </a>
+            </div>
+            <ul class="buttons">
+                <a href="{% url 'admin_logout' %}" class="btn logout">Logout</a>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h2>Admin Dashboard</h2>
+
+        <!-- Borrow Requests Section --> 
+        <h3 class="heading-borrow">Borrow Requests</h3>  
+        <div class="borrow-requests">
+
+            {% if borrow_requests %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Book</th>
+                            <th>Author</th>
+                            <th>Approve</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in borrow_requests %}
+                            <tr>
+                                <td>{{ request.user.username }}</td>
+                                <td>{{ request.book.title }}</td>
+                                <td>{{ request.book.author }}</td>
+                                <td>
+                                    <a href="{% url 'approve_request' request.id %}" class="btn approve">Approve</a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">No pending borrow requests.</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            {% else %}
+            <p>No pending borrow requests.</p>
+            {% endif %}
+        </div>
+
+        <!-- Upload Books Section -->
+        <div class="upload-books">
+            <!-- Section: Add a Single Book -->
+            <h3>Add a New Book</h3>
+            <form method="POST" action="{% url 'add_book' %}">
+                {% csrf_token %}
+                <label>Title:</label>
+                <input type="text" name="title" required>
+                
+                <label>Author:</label>
+                <input type="text" name="author" required>
+
+                <label>ISBN:</label>
+                <input type="text" name="isbn" required>
+
+                <label>Quantity:</label>
+                <input type="number" name="quantity" required>
+
+                <button type="submit">Add Book</button>
+            </form>
+            <h3>Upload Books (CSV File)</h3>
+            <form method="POST" action="{% url 'upload_books' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="csv_file" accept=".csv" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Borrowing History Table -->
+    <div class="borrow-history">
+        <h2>Borrowing History</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Borrow Date</th>
+                        <th>Return Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in borrow_history %}
+                    <tr>
+                        <td>{{ record.user.username }}</td>
+                        <td>{{ record.book.title }}</td>
+                        <td>{{ record.borrowed_at|date:"Y-m-d H:i" }}</td>
+                        <td>{% if record.returned %}{{ record.borrowed_at|date:"Y-m-d H:i" }}{% else %}--{% endif %}</td>
+                        <td>
+                            {% if record.returned %}
+                                <span class="returned">Returned</span>
+                            {% elif record.approved %}
+                                <span class="approved">Approved</span>
+                            {% else %}
+                                <span class="pending">Pending Approval</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No borrowing history available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <script>
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(alert) {
+                alert.style.display = 'none';
+            });
+        }, 3000); // Hides messages after 3 seconds
+    </script>
+
+</body>
+</html>

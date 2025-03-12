@@ -1,0 +1,302 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+
+        <nav class="nav">
+            <div class="max-width">
+                <div class="logo">
+                    <a href="#">
+                        <img src="{% static 'images/logo.png' %}" alt="Library Logo">
+                        Lib<span>rary</span>
+                    </a>
+                </div>
+                <ul class="buttons" id="menu">
+                    <a href="{% url 'logout' %}" class="btn logout">Logout</a>
+                </ul>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="about-section" id="about">
+            <h2>Welcome, {{ user.username }}! 😊</h2>
+            <br>
+            <br>
+            <br>
+            <p>We’re glad to have you here. Keep track of your borrowed books, explore new titles, and manage your library account with ease.</p>
+            <ul>
+                <li>📌 Browse a wide range of books</li>
+                <li>📌 Request books for borrowing</li>
+                <li>📌 Manage your reading list</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <p><strong>Happy Reading! 🎉</strong></p>
+        </div>
+
+        
+        
+        <!-- Book List -->
+        <section class="book-list">
+            <div class="max-width">
+                <h2>Available Books</h2>
+
+                <!-- Search bar -->
+                <div class="search-container" id="search-bar">
+                    <form method="GET" action="{% url 'book_list' %}">
+                        <input type="text" name="q" placeholder="🔍 Search books..." value="{{ query }}">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+                    
+                <div class="table-container" id="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ISBN</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="book-list">
+                            {% for book in books%}
+                            <tr>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.isbn }}</td>
+                                <td>{{ book.quantity }}</td>
+                                <td>
+                                    {% with borrowed_book=borrowed_book_ids|get_item:book.id %}
+                                        {% if borrowed_book %}
+                                            {% if borrowed_book.approved %}
+                                                <a href="{% url 'return_book' book.id %}" class="btn return">Return</a>
+                                            {% else %}
+                                                <span class="pending">Pending Approval</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="{% url 'request_borrow' book.id %}" class="btn request">Request Borrow</a>
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No books available at the moment.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>                
+            
+    {% else %}
+
+        <!-- Navbar -->
+        <nav class="nav">
+            <div class="max-width">
+                <div class="logo">
+                    <a href="#">
+                        <img src="{% static 'images/logo.png' %}" alt="Library Logo">
+                        Lib<span>rary</span>
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li><a href="#home" class="menu-btn">HOME</a></li>
+                    <li><a href="#about" class="menu-btn">ABOUT</a></li>
+                    <li><a href="#contact" class="menu-btn">CONTACT</a></li>
+                </ul>
+                
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section class="home" id="home">
+            <div class="max-width">
+                <div class="home-content">
+                    <h1>Your Gateway to Knowledge</h1>
+                    <br>
+                    <p>"Welcome! Dive into a treasure trove of books and resources that cater to every curiosity. Let the journey begin!"</p>
+                    <br>
+                    <br>
+                    <div class="buttons">
+                        <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+                        <a href="{% url 'login' %}" class="btn">Login</a>
+                        <a href="{% url 'admin_login' %}" class="btn">Admin Login</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="about-section" id="about">
+            <h2>Welcome to Library Management System! 📚</h2>
+            <br>
+            <br>
+            <p>Discover, borrow, and manage books effortlessly. Our digital library provides easy access to a vast collection of books,</p>
+            <p>allowing you to explore and request your favorite titles.</p>
+            <br>
+            
+            <ul>
+                <li>📌 Browse a wide range of books</li>
+                <li>📌 Request books for borrowing</li>
+                <li>📌 Manage your reading list</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <p><strong>🔑 Log in or Sign up to get started!</strong></p>
+        </div>
+
+        <!--Contact form-->
+    <div class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <p>Feel free to reach out to us!</p>
+        <div class="contact-container">            
+            <form id="contact-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Your Name">
+                    <span class="error" id="name-error"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Your Email">
+                    <span class="error" id="email-error"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Write your message here..."></textarea>
+                    <span class="error" id="message-error"></span>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h2>Library Management System</h2>
+                <p>Bringing knowledge to your fingertips.</p>
+            </div>
+    
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'book_list' %}">Books</a></li>
+                    <p>|</p>
+                    <li><a href="{% url 'admin_login' %}">Admin Panel</a></li>
+                    <p>|</p>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <!-- GitHub -->
+                    <a href="https://github.com/yourusername" target="_blank" class="social-icon github">
+                        <i class="fab fa-github"></i>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/yourprofile" target="_blank" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/yourphonenumber" target="_blank" class="social-icon whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2025 Library Management System | All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Restore scroll position after reloading
+            let searchSection = sessionStorage.getItem("searchSection");
+            let borrowSection = sessionStorage.getItem("borrowSection");
+        
+            if (searchSection) {
+                let searchElement = document.getElementById(searchSection);
+                if (searchElement) {
+                    searchElement.scrollIntoView({ behavior: "smooth" });
+                }
+                sessionStorage.removeItem("searchSection"); // Clear after scrolling
+            }
+        
+            if (borrowSection) {
+                let borrowElement = document.getElementById(borrowSection);
+                if (borrowElement) {
+                    borrowElement.scrollIntoView({ behavior: "smooth" });
+                }
+                sessionStorage.removeItem("borrowSection"); // Clear after scrolling
+            }
+        
+            // Save search section before form submission
+            document.querySelector("form").addEventListener("submit", function () {
+                sessionStorage.setItem("searchSection", "search-bar");
+            });
+        
+            // Save borrow section when clicking "Request Borrow" or "Return"
+            document.querySelectorAll(".request, .return").forEach((el) => {
+                el.addEventListener("click", function () {
+                    sessionStorage.setItem("borrowSection", "table");
+                });
+            });
+        });        
+        
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(alert) {
+                alert.style.display = 'none';
+            });
+        }, 3000); // Hides messages after 3 seconds
+        
+    </script>
+
+</body>
+</html>

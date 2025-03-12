@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}"/>
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+</head>
+<body>
+    
+    <section class="container">
+        <header>Login Form</header>
+        <form method="post" action="{% url 'login' %}" class="form">
+            {% csrf_token %}
+            <div class="input-box">
+                <label>Username</label>
+                <input type="text" placeholder="Enter username" name="username" id="username" required />
+            </div>
+
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" placeholder="Enter password" name="password" id="password" required />
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+        
+        <p>New user? <a href="{% url 'signup' %}">Sign Up</a></p>
+    </section>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <script>
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(alert) {
+                alert.style.display = 'none';
+            });
+        }, 3000); // Hides messages after 3 seconds
+    </script>
+
+</body>
+</html>
